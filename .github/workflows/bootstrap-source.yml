@@ -16,32 +16,68 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
-      - name: Reconstruct source archive
+      - name: Reconstruct and verify source archive
         shell: bash
         run: |
-          cat .bootstrap/chunk-* > /tmp/source.b64
-          base64 --decode /tmp/source.b64 > /tmp/source.tar.xz
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          import hashlib
+
+          chunks = sorted(Path('.bootstrap').glob('chunk-*'))
+          if len(chunks) != 10:
+              raise SystemExit(f'Expected 10 chunks, found {len(chunks)}: {[p.name for p in chunks]}')
+
+          encoded = ''.join(p.read_text(encoding='utf-8') for p in chunks)
+          encoded = ''.join(encoded.split())
+          archive = base64.b64decode(encoded, validate=True)
+          digest = hashlib.sha256(archive).hexdigest()
+
+          print(f'Chunks: {len(chunks)}')
+          print(f'Encoded characters: {len(encoded)}')
+          print(f'Archive bytes: {len(archive)}')
+          print(f'Archive SHA-256: {digest}')
+
+          expected = 'f3534f89032bff764866ee5c69a5b8a1550ff1ba3ef840277ae82275ed253c52'
+          if digest != expected:
+              raise SystemExit(f'Archive checksum mismatch. Expected {expected}, received {digest}.')
+
+          Path('/tmp/source.tar.xz').write_bytes(archive)
+          PY
+
+          xz --test /tmp/source.tar.xz
+          rm -rf /tmp/plugin-source
           mkdir -p /tmp/plugin-source
           tar -xJf /tmp/source.tar.xz -C /tmp/plugin-source
+          test -f /tmp/plugin-source/package.json
+          test -f /tmp/plugin-source/src/main.js
+          test -f /tmp/plugin-source/styles.css
 
       - name: Install prepared source tree
         shell: bash
         run: |
-          rsync -a --delete \
-            --exclude ".git/" \
-            --exclude ".bootstrap/" \
-            --exclude ".github/workflows/bootstrap-source.yml" \
-            /tmp/plugin-source/ ./
+          set -euo pipefail
+          cp -a /tmp/plugin-source/. ./
           rm -rf .bootstrap
           rm -f .github/workflows/bootstrap-source.yml
+
+      - name: Verify source package
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci
+          npm run verify
+          npm run build
 
       - name: Commit source tree
         shell: bash
         run: |
+          set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
@@ -50,4 +86,4 @@ jobs:
             exit 0
           fi
           git commit -m "Publish RPG Homebrew Importer 1.0.0 source"
-          git push
+          git push origin HEAD:main
