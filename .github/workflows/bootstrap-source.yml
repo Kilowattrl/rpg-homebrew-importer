@@ -61,9 +61,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          rm -rf /tmp/plugin-source/.github/workflows
           cp -a /tmp/plugin-source/. ./
           rm -rf .bootstrap
-          rm -f .github/workflows/bootstrap-source.yml
 
       - name: Verify prepared source without package installation
         shell: bash
