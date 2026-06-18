@@ -1,1 +1,1 @@
-Trigger the source bootstrap workflow.
+Trigger the source bootstrap workflow after removing package installation from bootstrap verification.
