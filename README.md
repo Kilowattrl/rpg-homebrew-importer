@@ -2,14 +2,10 @@
 
 Import creations from [RPG Homebrew](https://rpg-homebrew.netlify.app) into Obsidian as searchable Markdown notes with compact, game-ready rendered cards.
 
-The plugin understands the website's JSON formats for mobs, classes, items, potions, spells, skills, achievements, lootboxes, description cards, preview collections, library exports, and page documents.
-
 ## Features
 
 - Import one or many downloaded JSON files.
-- Paste JSON or receive a direct website export through the system clipboard.
-- Create one Markdown note per creation, with optional type-based folders.
-- Preserve the original JSON inside each note for future rerendering and migrations.
+- Paste JSON or receive a direct website export.
 - Render cards with scoped CSS grids that remain consistent across Obsidian themes.
 - Click dice notation such as `d20`, `1d8+3`, or `2d6-1d4+3` to roll it.
 - Review totals, individual dice, modifiers, sources, and roll history in a dockable dice-results view.
@@ -26,13 +22,9 @@ Each imported note contains Obsidian properties, the original source data in an 
 
 ## Direct website export
 
-The website can send an export to Obsidian without an account or cloud storage. It writes a versioned transfer package to the clipboard and opens:
+The website can send an export to Obsidian.
 
-```text
-obsidian://rpg-homebrew-import?source=clipboard&requestId=<UUID>
-```
-
-The plugin validates the request ID and payload before opening the normal import window. Direct transfers support packages up to 32 MiB. Larger or image-heavy page documents can use the regular JSON download and import flow.
+The plugin validates the request ID and payload before opening the normal import window. Direct transfers support packages up to 32 MiB. Larger creations can use the regular JSON download and import flow.
 
 When automatic clipboard access is unavailable, open Obsidian and run **RPG Homebrew Importer: Receive website export from clipboard**, or paste the package into the importer.
 
@@ -56,7 +48,7 @@ The direct-export website handoff places the selected JSON package on the clipbo
 
 ## Supported platforms
 
-The plugin uses Obsidian's cross-platform APIs and Web Clipboard API. File imports and rendered cards work on desktop and mobile. Clipboard permission behavior varies by operating system, so the manual paste fallback remains available.
+The plugin uses Obsidian's cross-platform APIs and Web Clipboard API. File imports and rendered cards work on desktop and mobile. Clipboard permission behavior varies by operating system, so the manual paste fallback is always an option.
 
 ## Manual installation
 
