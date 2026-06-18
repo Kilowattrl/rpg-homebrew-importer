@@ -27,8 +27,6 @@ jobs:
             cat .source-parts/main-* | base64 --decode > src/main.js
           fi
           test -s src/main.js
-          echo "Restored source bytes: $(wc -c < src/main.js)"
-          echo "Restored source SHA-256: $(sha256sum src/main.js | cut -d' ' -f1)"
 
       - name: Verify source syntax
         run: node --check src/main.js
@@ -43,8 +41,8 @@ jobs:
           test -s styles.css
           node -e "const p=require('./package.json'); const m=require('./manifest.json'); if(p.version!==m.version) throw new Error('package.json and manifest.json versions do not match'); if(!m.id||!m.name||!m.description) throw new Error('manifest.json is missing required fields')"
 
-      - name: Commit restored source
-        if: github.event_name == 'push'
+      - name: Publish restored source branch
+        if: github.event_name == 'push' && github.ref_name == 'main'
         shell: bash
         run: |
           set -euo pipefail
@@ -55,4 +53,4 @@ jobs:
             exit 0
           fi
           git commit -m "Restore plugin source file"
-          git push origin HEAD:main
+          git push origin HEAD:source-restore
