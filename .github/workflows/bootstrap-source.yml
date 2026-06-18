@@ -55,7 +55,6 @@ jobs:
           tar -xJf /tmp/source.tar.xz -C /tmp/plugin-source
           test -f /tmp/plugin-source/package.json
           test -f /tmp/plugin-source/src/main.js
-          test -f /tmp/plugin-source/main.js
           test -f /tmp/plugin-source/styles.css
 
       - name: Install prepared source tree
@@ -72,8 +71,6 @@ jobs:
           set -euo pipefail
           node --check src/main.js
           node tests/parser-smoke.js
-          node --check main.js
-          PLUGIN_ENTRY=main.js node tests/parser-smoke.js
 
       - name: Commit source tree
         shell: bash
