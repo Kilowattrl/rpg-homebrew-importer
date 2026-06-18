@@ -83,9 +83,3 @@ Use the same payloads as the current file exports:
 - One library section: `libraryExportPayload(section)`
 - A library-row export: use the exact object currently passed to `JSON.stringify` for that row's JSON download action
 - Page document: use the exact document object currently downloaded by the page-document export
-
-## Failure behavior
-
-Keep the existing JSON download buttons. When clipboard access fails, show a clear message and offer the normal JSON download immediately. Browsers decide whether to show the native “Open Obsidian?” prompt.
-
-The plugin accepts up to 32 MiB per direct clipboard handoff. Image-heavy page documents or very large libraries can exceed that because uploaded images are stored as data URLs. Those exports should fall back to normal JSON download/import.
