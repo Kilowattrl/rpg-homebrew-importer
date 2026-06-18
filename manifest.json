@@ -1,0 +1,10 @@
+{
+  "id": "rpg-homebrew-importer",
+  "name": "RPG Homebrew Importer",
+  "version": "1.0.0",
+  "minAppVersion": "1.5.0",
+  "description": "Import RPG Homebrew JSON as rendered TTRPG statblocks, receive direct website exports, and roll clickable dice notation.",
+  "author": "Jackson Woodard",
+  "authorUrl": "https://rpg-homebrew.netlify.app",
+  "isDesktopOnly": false
+}
