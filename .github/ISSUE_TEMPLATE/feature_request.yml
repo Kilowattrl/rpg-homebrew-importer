@@ -1,0 +1,19 @@
+name: Feature request
+description: Suggest an improvement to imports, rendering, dice, or website integration.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use case
+      description: Describe the campaign-prep problem or workflow this would improve.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Explain what the plugin should do from the user's perspective.
+    validations:
+      required: true

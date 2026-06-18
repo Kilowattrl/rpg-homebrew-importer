@@ -1,0 +1,38 @@
+name: Bug report
+description: Report an import, rendering, dice, or website-handoff problem.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Describe the problem and what you expected to happen.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Plugin version
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: obsidian-version
+    attributes:
+      label: Obsidian version and platform
+      placeholder: Obsidian 1.x on Windows, macOS, Linux, Android, or iOS
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Include a reduced JSON sample when possible. Remove private campaign information first.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Errors or screenshots
+      description: Paste relevant console errors or attach screenshots.

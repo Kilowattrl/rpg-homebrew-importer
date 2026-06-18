@@ -1,0 +1,28 @@
+{
+  "name": "rpg-homebrew-importer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Import and render RPG Homebrew JSON in Obsidian, receive direct website exports, and roll dice from statblocks.",
+  "main": "main.js",
+  "scripts": {
+    "dev": "node esbuild.config.mjs",
+    "build": "node esbuild.config.mjs production",
+    "check": "node --check src/main.js",
+    "test": "node tests/parser-smoke.js",
+    "verify": "npm run check && npm test",
+    "test:bundle": "PLUGIN_ENTRY=main.js node tests/parser-smoke.js"
+  },
+  "keywords": [
+    "obsidian",
+    "ttrpg",
+    "rpg",
+    "statblock",
+    "homebrew",
+    "dice"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "obsidian": "^1.13.1"
+  }
+}

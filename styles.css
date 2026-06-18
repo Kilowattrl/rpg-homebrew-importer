@@ -1,0 +1,1102 @@
+/* RPG Homebrew Importer v1.0.0 */
+
+.rpg-homebrew-render {
+  --rpg-hb-ink: #202420;
+  --rpg-hb-muted: #3c423c;
+  --rpg-hb-rule: #9b9b9b;
+  --rpg-hb-heavy-rule: #111;
+  --rpg-hb-paper: #fff;
+  --rpg-hb-desc-bg: #d7ead6;
+  --rpg-hb-desc-border: #2b6b46;
+  display: block;
+  width: 100%;
+  margin: 0.75rem 0 1rem;
+  color: var(--rpg-hb-ink);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.rpg-homebrew-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 340px) minmax(0, 254px);
+  gap: 18px;
+  align-items: start;
+  width: max-content;
+  max-width: 100%;
+}
+
+.rpg-homebrew-statblock,
+.rpg-homebrew-classblock,
+.rpg-homebrew-itemblock,
+.rpg-homebrew-generic-block {
+  width: 340px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: var(--rpg-hb-paper);
+  color: var(--rpg-hb-ink);
+  padding: 5px 8px 6px;
+  border: 0;
+  border-radius: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 1.13;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+
+.rpg-homebrew-name,
+.rpg-homebrew-generic-name {
+  margin: 0;
+  color: #202420;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.05;
+}
+
+.rpg-homebrew-subtitle {
+  margin: 2px 0 7px;
+  color: var(--rpg-hb-muted);
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.1;
+  white-space: pre-wrap;
+}
+
+.rpg-homebrew-health-wrap {
+  margin: 0 0 5px;
+}
+
+.rpg-homebrew-health-bar {
+  display: flex;
+  width: 100%;
+  height: 24px;
+  gap: 1px;
+  align-items: stretch;
+}
+
+.rpg-homebrew-health-segment {
+  display: flex;
+  flex: 1 1 0;
+  min-width: 16px;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+}
+
+.rpg-homebrew-health-percent-row {
+  display: flex;
+  width: 100%;
+  gap: 1px;
+  margin-top: 2px;
+}
+
+.rpg-homebrew-health-percent {
+  flex: 1 1 0;
+  min-width: 16px;
+  color: #333;
+  font-size: 9px;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.rpg-homebrew-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin: 3px 0 0;
+  color: #242a24;
+}
+
+.rpg-homebrew-table.rpg-homebrew-vitals,
+.rpg-homebrew-table.rpg-homebrew-requirements {
+  margin-top: 4px;
+  border-top: 2px solid var(--rpg-hb-heavy-rule);
+  border-bottom: 1px solid var(--rpg-hb-rule);
+}
+
+.rpg-homebrew-table.rpg-homebrew-stats {
+  margin-top: 0;
+  border-bottom: 1px solid var(--rpg-hb-rule);
+}
+
+.rpg-homebrew-table th {
+  padding: 4px 2px 2px;
+  border: 0;
+  color: #242a24;
+  background: transparent;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.rpg-homebrew-table td {
+  padding: 3px 2px 5px;
+  border: 0;
+  color: #242a24;
+  background: transparent;
+  font-size: 13px;
+  line-height: 1.05;
+  text-align: center;
+}
+
+.rpg-homebrew-actions,
+.rpg-homebrew-class-entries,
+.rpg-homebrew-item-entries {
+  margin-top: 1px;
+}
+
+.rpg-homebrew-action,
+.rpg-homebrew-class-entry,
+.rpg-homebrew-item-entry {
+  padding: 3px 0 4px;
+  color: #202420;
+  font-size: 13px;
+  line-height: 1.13;
+  white-space: pre-wrap;
+}
+
+.rpg-homebrew-action.has-rider:not(:last-child),
+.rpg-homebrew-class-entry.class-feature:not(:last-child),
+.rpg-homebrew-item-entry.item-feature:not(:last-child) {
+  border-bottom: 1px solid var(--rpg-hb-rule);
+}
+
+.rpg-homebrew-action-name,
+.rpg-homebrew-entry-label {
+  color: #242a24;
+  font-weight: 800;
+}
+
+.rpg-homebrew-notes {
+  margin-top: 1px;
+  padding-top: 4px;
+  border-top: 1px solid var(--rpg-hb-rule);
+  color: #202420;
+  font-size: 13px;
+  line-height: 1.13;
+  white-space: pre-wrap;
+}
+
+.rpg-homebrew-item-kind {
+  display: inline-block;
+  margin: 2px 0 5px;
+  padding: 2px 7px;
+  border: 1px solid var(--rpg-hb-rule);
+  border-radius: 999px;
+  color: #384038;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.rpg-homebrew-description-box {
+  width: 254px;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 5px 7px 7px;
+  border-top: 3px solid var(--rpg-hb-desc-border);
+  border-right: 1px solid #8aab89;
+  border-bottom: 1px solid #8aab89;
+  border-left: 1px solid #8aab89;
+  background: var(--rpg-hb-desc-bg);
+  color: #1c241c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 1.24;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.rpg-homebrew-description-title {
+  margin: 0 0 6px;
+  color: #1c241c;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.rpg-homebrew-description-body {
+  line-height: 1.24;
+  white-space: pre-wrap;
+}
+
+.rpg-homebrew-generic-block {
+  padding: 7px 9px 9px;
+  line-height: 1.25;
+}
+
+.rpg-homebrew-generic-name {
+  margin: 0 0 2px;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.rpg-homebrew-generic-quote {
+  margin: 0 0 6px;
+  color: #3c423c;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.rpg-homebrew-generic-tags {
+  margin: 0 0 6px;
+  color: #202420;
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.rpg-homebrew-generic-lines {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  margin: 0 0 7px;
+  color: #394139;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.rpg-homebrew-generic-body,
+.rpg-homebrew-generic-reward,
+.rpg-homebrew-generic-damage,
+.rpg-homebrew-generic-limitations,
+.rpg-homebrew-upgrade {
+  color: #202420;
+  font-size: 13px;
+  line-height: 1.25;
+  white-space: pre-wrap;
+}
+
+.rpg-homebrew-generic-damage,
+.rpg-homebrew-generic-limitations {
+  margin: 0 0 7px;
+}
+
+.rpg-homebrew-section-title {
+  margin: 10px 0 1px;
+  color: #202420;
+  font-size: 14px;
+  font-weight: 900;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.rpg-homebrew-achievement-main-title {
+  margin: 0 0 5px;
+  color: #a36a12;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.rpg-homebrew-achievement-subtitle {
+  margin: 0 0 6px;
+  color: #202420;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.rpg-homebrew-achievement-reward-label {
+  display: block;
+  margin-top: 8px;
+  color: #7a2608;
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.rpg-homebrew-creator-credit {
+  margin-top: 8px;
+  padding-top: 5px;
+  border-top: 1px solid rgba(0, 0, 0, 0.18);
+  color: #4f584f;
+  font-size: 10px;
+  font-style: italic;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.rpg-homebrew-lootbox-pool,
+.rpg-homebrew-document-pages {
+  display: grid;
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.rpg-homebrew-lootbox-entry {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.rpg-homebrew-lootbox-name {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 700;
+}
+
+.rpg-homebrew-lootbox-weight {
+  flex: 0 0 auto;
+  color: #5c625c;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.rpg-homebrew-document-page {
+  padding: 4px 0;
+  border-bottom: 1px solid #d0d0d0;
+  color: #202420;
+  font-size: 12px;
+}
+
+.rpg-homebrew-document-note {
+  margin-top: 10px;
+  padding-top: 7px;
+  border-top: 1px solid #b8b8b8;
+  color: #5c625c;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.rpg-homebrew-render-error,
+.rpg-homebrew-error {
+  padding: 10px 12px;
+  border: 1px solid var(--background-modifier-error);
+  border-radius: var(--radius-s);
+  background: rgba(var(--color-red-rgb), 0.08);
+  color: var(--text-error);
+}
+
+.modal.rpg-homebrew-import-modal-shell {
+  width: min(1000px, calc(100vw - 48px));
+  max-width: min(1000px, calc(100vw - 48px));
+  height: min(860px, calc(100vh - 48px));
+  max-height: calc(100vh - 48px);
+}
+
+.modal.rpg-homebrew-import-modal-shell .modal-content {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.rpg-homebrew-import-modal {
+  width: 100%;
+  max-width: none;
+}
+
+.rpg-homebrew-drop-zone {
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  margin: 14px 0;
+  padding: 22px;
+  border: 2px dashed var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  text-align: center;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+
+.rpg-homebrew-drop-zone.is-dragging {
+  border-color: var(--interactive-accent);
+  background: var(--background-secondary-alt);
+}
+
+.rpg-homebrew-drop-zone input[type="file"] {
+  max-width: 100%;
+}
+
+.rpg-homebrew-json-label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+  color: var(--text-normal);
+  font-size: var(--font-ui-small);
+  font-weight: 600;
+}
+
+.rpg-homebrew-json-input {
+  width: 100%;
+  min-height: 220px;
+  resize: vertical;
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+}
+
+.rpg-homebrew-import-preview {
+  min-height: 54px;
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  background: var(--background-secondary);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  line-height: 1.45;
+}
+
+.rpg-homebrew-import-preview strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--text-normal);
+}
+
+.rpg-homebrew-import-error {
+  margin-top: 5px;
+  color: var(--text-error);
+}
+
+.rpg-homebrew-import-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+@media (max-width: 760px) {
+  .modal.rpg-homebrew-import-modal-shell {
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    height: calc(100vh - 24px);
+    max-height: calc(100vh - 24px);
+  }
+
+  .rpg-homebrew-json-input {
+    min-height: 160px;
+  }
+
+  .rpg-homebrew-pair {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+  }
+
+  .rpg-homebrew-statblock,
+  .rpg-homebrew-classblock,
+  .rpg-homebrew-itemblock,
+  .rpg-homebrew-generic-block,
+  .rpg-homebrew-description-box {
+    width: 100%;
+  }
+}
+
+/* v0.2.0: theme-isolated card host and dockable dice-results view */
+.rpg-homebrew-shadow-host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.rpg-homebrew-dice-view {
+  height: 100%;
+  padding: 12px;
+  overflow-y: auto;
+}
+
+.rpg-homebrew-dice-view-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.rpg-homebrew-dice-view-header h4 {
+  margin: 0;
+  font-size: var(--font-ui-medium);
+}
+
+.rpg-homebrew-dice-clear {
+  flex: 0 0 auto;
+}
+
+.rpg-homebrew-manual-roller {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 7px;
+  margin-bottom: 12px;
+}
+
+.rpg-homebrew-manual-roller input {
+  width: 100%;
+  min-width: 0;
+  font-family: var(--font-monospace);
+}
+
+.rpg-homebrew-roll-history {
+  display: grid;
+  gap: 8px;
+}
+
+.rpg-homebrew-roll-empty {
+  padding: 12px;
+  border: 1px dashed var(--background-modifier-border);
+  border-radius: var(--radius-s);
+  color: var(--text-muted);
+  font-size: var(--font-ui-small);
+  line-height: 1.4;
+}
+
+.rpg-homebrew-roll-result {
+  padding: 9px 10px;
+  border: 1px solid var(--background-modifier-border);
+  border-radius: var(--radius-m);
+  background: var(--background-secondary);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.rpg-homebrew-roll-result-top {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+}
+
+.rpg-homebrew-roll-total {
+  min-width: 42px;
+  padding: 5px 8px;
+  border-radius: var(--radius-s);
+  background: var(--interactive-accent);
+  color: var(--text-on-accent);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+}
+
+.rpg-homebrew-roll-identity {
+  min-width: 0;
+}
+
+.rpg-homebrew-roll-expression {
+  overflow-wrap: anywhere;
+  color: var(--text-normal);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-small);
+  font-weight: 700;
+}
+
+.rpg-homebrew-roll-context {
+  margin-top: 2px;
+  overflow-wrap: anywhere;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.25;
+}
+
+.rpg-homebrew-roll-breakdown {
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+  color: var(--text-normal);
+  font-family: var(--font-monospace);
+  font-size: var(--font-ui-smaller);
+  line-height: 1.35;
+}
+
+.rpg-homebrew-roll-time {
+  margin-top: 5px;
+  color: var(--text-faint);
+  font-size: 10px;
+  text-align: right;
+}
+
+/* v0.3.0: account-free website-to-Obsidian clipboard handoff */
+.rpg-homebrew-direct-transfer-banner {
+  display: grid;
+  gap: 4px;
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--color-green);
+  border-radius: var(--radius-m);
+  background: color-mix(in srgb, var(--color-green) 12%, var(--background-secondary));
+  color: var(--text-normal);
+  overflow-wrap: anywhere;
+}
+
+.rpg-homebrew-direct-transfer-banner.is-warning {
+  border-color: var(--color-orange);
+  background: color-mix(in srgb, var(--color-orange) 12%, var(--background-secondary));
+}
+
+.rpg-homebrew-direct-transfer-banner strong {
+  color: var(--text-normal);
+}
+
+.rpg-homebrew-direct-transfer-warning {
+  color: var(--text-warning);
+  font-size: var(--font-ui-smaller);
+  font-weight: 700;
+}
+
+
+/* Public-release card renderer. Scoped CSS replaces the earlier Shadow DOM stylesheet. */
+.rpg-homebrew-card-root,
+  .rpg-homebrew-card-root * {
+    box-sizing: border-box;
+  }
+
+  .rpg-homebrew-card-root {
+    display: block;
+    width: 100%;
+    margin: 0;
+    color: #1f241f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.13;
+    text-align: left;
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  .rpg-homebrew-pair {
+    display: grid;
+    grid-template-columns: minmax(0, 340px) minmax(0, 254px);
+    gap: 18px;
+    align-items: start;
+    width: max-content;
+    max-width: 100%;
+  }
+
+  .rpg-homebrew-statblock,
+  .rpg-homebrew-classblock,
+  .rpg-homebrew-itemblock {
+    display: block;
+    width: 340px;
+    max-width: 100%;
+    margin: 0;
+    padding: 5px 8px 6px;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    color: #1f241f;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.13;
+  }
+
+  .rpg-homebrew-generic-block {
+    display: block;
+    width: 340px;
+    max-width: 100%;
+    margin: 0;
+    padding: 7px 9px 9px;
+    border: 0;
+    border-radius: 0;
+    background: #fff;
+    color: #202420;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.25;
+  }
+
+  .rpg-homebrew-name {
+    display: block;
+    margin: 0;
+    color: #202420;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.05;
+    overflow-wrap: anywhere;
+    text-transform: none;
+  }
+
+  .rpg-homebrew-subtitle {
+    display: block;
+    margin: 2px 0 7px;
+    color: #3c423c;
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.1;
+    white-space: pre-wrap;
+  }
+
+  .rpg-homebrew-health-wrap { margin: 0 0 5px; }
+  .rpg-homebrew-health-bar {
+    display: flex;
+    width: 100%;
+    height: 24px;
+    gap: 1px;
+    align-items: stretch;
+  }
+  .rpg-homebrew-health-segment {
+    display: flex;
+    flex: 1 1 0;
+    min-width: 16px;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+  }
+  .rpg-homebrew-health-percent-row {
+    display: flex;
+    width: 100%;
+    gap: 1px;
+    margin-top: 2px;
+  }
+  .rpg-homebrew-health-percent {
+    flex: 1 1 0;
+    min-width: 16px;
+    color: #333;
+    font-size: 9px;
+    font-weight: 400;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .rpg-homebrew-data-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    width: 100%;
+    margin: 3px 0 0;
+    color: #242a24;
+  }
+  .rpg-homebrew-data-grid.rpg-homebrew-vitals,
+  .rpg-homebrew-data-grid.rpg-homebrew-requirements {
+    margin-top: 4px;
+    border-top: 2px solid #111;
+    border-bottom: 1px solid #9b9b9b;
+  }
+  .rpg-homebrew-data-grid.rpg-homebrew-stats {
+    margin-top: 0;
+    border-bottom: 1px solid #9b9b9b;
+  }
+  .rpg-homebrew-grid-cell {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    border: 0;
+    background: transparent;
+    color: #242a24;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    hyphens: auto;
+  }
+  .rpg-homebrew-grid-header {
+    padding: 4px 1px 2px;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1.05;
+  }
+  .rpg-homebrew-grid-value {
+    padding: 3px 1px 5px;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.05;
+  }
+
+  .rpg-homebrew-actions,
+  .rpg-homebrew-class-entries,
+  .rpg-homebrew-item-entries { margin-top: 1px; }
+  .rpg-homebrew-action,
+  .rpg-homebrew-class-entry,
+  .rpg-homebrew-item-entry {
+    display: block;
+    padding: 3px 0 4px;
+    color: #202420;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.13;
+    white-space: pre-wrap;
+  }
+  .rpg-homebrew-action.has-rider:not(:last-child),
+  .rpg-homebrew-class-entry.class-feature:not(:last-child),
+  .rpg-homebrew-item-entry.item-feature:not(:last-child) {
+    border-bottom: 1px solid #9b9b9b;
+  }
+  .rpg-homebrew-action-name,
+  .rpg-homebrew-entry-label {
+    color: #242a24;
+    font-weight: 800;
+  }
+  .rpg-homebrew-notes {
+    display: block;
+    margin-top: 1px;
+    padding-top: 4px;
+    border-top: 1px solid #9b9b9b;
+    color: #202420;
+    font-size: 13px;
+    line-height: 1.13;
+    white-space: pre-wrap;
+  }
+  .rpg-homebrew-card-root b,
+  .rpg-homebrew-card-root strong { font-weight: 800; }
+
+  .rpg-homebrew-item-kind {
+    display: inline-block;
+    margin: 2px 0 5px;
+    padding: 2px 7px;
+    border: 1px solid #9b9b9b;
+    border-radius: 999px;
+    background: transparent;
+    color: #384038;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .06em;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .rpg-homebrew-description-box {
+    display: block;
+    width: 254px;
+    max-width: 100%;
+    margin: 0;
+    padding: 5px 7px 7px;
+    border-top: 3px solid #2b6b46;
+    border-right: 1px solid #8aab89;
+    border-bottom: 1px solid #8aab89;
+    border-left: 1px solid #8aab89;
+    background: #d7ead6;
+    color: #1c241c;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    line-height: 1.24;
+  }
+  .rpg-homebrew-description-title {
+    display: block;
+    margin: 0 0 6px;
+    color: #1c241c;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .rpg-homebrew-description-body {
+    color: #1c241c;
+    line-height: 1.24;
+    white-space: pre-wrap;
+  }
+
+  .rpg-homebrew-generic-name {
+    display: block;
+    margin: 0 0 2px;
+    color: #202420;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+    text-transform: uppercase;
+  }
+  .rpg-homebrew-generic-quote {
+    margin: 0 0 6px;
+    color: var(--rpg-homebrew-custom-color, #3c423c);
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.2;
+  }
+  .rpg-homebrew-generic-tags {
+    margin: 0 0 6px;
+    color: var(--rpg-homebrew-custom-color, #202420);
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.2;
+  }
+  .rpg-homebrew-generic-lines {
+    display: block;
+    margin: 0 0 7px;
+    color: #202420;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.25;
+    text-transform: none;
+    white-space: normal;
+  }
+  .rpg-homebrew-generic-lines > span { display: block; }
+  .rpg-homebrew-generic-body,
+  .rpg-homebrew-generic-reward,
+  .rpg-homebrew-generic-damage,
+  .rpg-homebrew-generic-limitations,
+  .rpg-homebrew-upgrade {
+    color: #202420;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.25;
+    white-space: pre-wrap;
+  }
+  .rpg-homebrew-generic-damage,
+  .rpg-homebrew-generic-limitations { margin: 0 0 7px; }
+  .rpg-homebrew-section-title {
+    margin: 10px 0 1px;
+    color: #202420;
+    font-size: 14px;
+    font-weight: 900;
+    line-height: 1.05;
+    text-transform: uppercase;
+  }
+  .rpg-homebrew-upgrade { margin-top: 1px; }
+
+  .rpg-homebrew-achievement-main-title {
+    display: block;
+    margin: 0 0 5px;
+    color: #a36a12;
+    font-size: 20px;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .rpg-homebrew-achievement-subtitle {
+    margin: 0 0 6px;
+    color: #202420;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.15;
+    text-transform: uppercase;
+  }
+  .rpg-homebrew-achievement-reward-label {
+    display: block;
+    margin-top: 8px;
+    color: #7a2608;
+    font-size: 15px;
+    font-weight: 900;
+    line-height: 1.1;
+    text-transform: uppercase;
+  }
+
+  .rpg-homebrew-creator-credit {
+    margin-top: 8px;
+    padding-top: 5px;
+    border-top: 1px solid rgba(0, 0, 0, .18);
+    color: #4f584f;
+    font-size: 10px;
+    font-style: italic;
+    line-height: 1.2;
+    text-align: right;
+  }
+  .rpg-homebrew-lootbox-pool,
+  .rpg-homebrew-document-pages {
+    display: grid;
+    gap: 4px;
+    margin-top: 5px;
+  }
+  .rpg-homebrew-lootbox-entry {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 4px 0;
+    border-bottom: 1px solid #d0d0d0;
+  }
+  .rpg-homebrew-lootbox-name {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-weight: 700;
+  }
+  .rpg-homebrew-lootbox-weight {
+    flex: 0 0 auto;
+    color: #5c625c;
+    font-size: 11px;
+    font-weight: 800;
+  }
+  .rpg-homebrew-document-page {
+    padding: 4px 0;
+    border-bottom: 1px solid #d0d0d0;
+    color: #202420;
+    font-size: 12px;
+  }
+  .rpg-homebrew-document-note {
+    margin-top: 10px;
+    padding-top: 7px;
+    border-top: 1px solid #b8b8b8;
+    color: #5c625c;
+    font-size: 11px;
+    font-style: italic;
+  }
+
+  .rpg-homebrew-dice-button {
+    all: unset;
+    display: inline;
+    border-bottom: 1px dotted currentColor;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    text-decoration: none;
+  }
+  .rpg-homebrew-dice-button:hover,
+  .rpg-homebrew-dice-button:focus-visible {
+    border-bottom-style: solid;
+    background: rgba(35, 101, 70, .12);
+    outline: 1px solid rgba(35, 101, 70, .45);
+    outline-offset: 1px;
+  }
+  .rpg-homebrew-dice-button.is-rolling {
+    background: rgba(35, 101, 70, .2);
+  }
+
+  /* Fixed class variants keep dynamic data out of inline layout styles. */
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-7 { grid-template-columns: repeat(7, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-8 { grid-template-columns: repeat(8, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-9 { grid-template-columns: repeat(9, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-10 { grid-template-columns: repeat(10, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-11 { grid-template-columns: repeat(11, minmax(0, 1fr)); }
+  .rpg-homebrew-data-grid.rpg-homebrew-columns-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+  .rpg-homebrew-health-color-1 { background: rgb(183, 34, 40); }
+  .rpg-homebrew-health-color-2 { background: rgb(190, 40, 42); }
+  .rpg-homebrew-health-color-3 { background: rgb(196, 46, 43); }
+  .rpg-homebrew-health-color-4 { background: rgb(203, 52, 45); }
+  .rpg-homebrew-health-color-5 { background: rgb(205, 63, 46); }
+  .rpg-homebrew-health-color-6 { background: rgb(193, 96, 45); }
+  .rpg-homebrew-health-color-7 { background: rgb(180, 128, 44); }
+  .rpg-homebrew-health-color-8 { background: rgb(168, 160, 43); }
+  .rpg-homebrew-health-color-9 { background: rgb(151, 159, 43); }
+  .rpg-homebrew-health-color-10 { background: rgb(133, 148, 44); }
+  .rpg-homebrew-health-color-11 { background: rgb(115, 138, 44); }
+  .rpg-homebrew-health-color-12 { background: rgb(97, 127, 45); }
+  .rpg-homebrew-health-color-13 { background: rgb(78, 128, 54); }
+  .rpg-homebrew-health-color-14 { background: rgb(58, 129, 62); }
+  .rpg-homebrew-health-color-15 { background: rgb(39, 130, 71); }
+  .rpg-homebrew-health-color-16 { background: rgb(22, 131, 78); }
+  .rpg-homebrew-health-color-17 { background: rgb(17, 130, 76); }
+  .rpg-homebrew-health-color-18 { background: rgb(11, 129, 74); }
+  .rpg-homebrew-health-color-19 { background: rgb(6, 128, 72); }
+  .rpg-homebrew-health-color-20 { background: rgb(0, 127, 70); }
+
+  @media (max-width: 660px) {
+    .rpg-homebrew-pair {
+      grid-template-columns: minmax(0, 1fr);
+      width: 100%;
+    }
+    .rpg-homebrew-statblock,
+    .rpg-homebrew-classblock,
+    .rpg-homebrew-itemblock,
+    .rpg-homebrew-generic-block,
+    .rpg-homebrew-description-box { width: 100%; }
+  }
