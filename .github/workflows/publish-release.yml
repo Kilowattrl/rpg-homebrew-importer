@@ -1,0 +1,74 @@
+name: Publish plugin release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci --no-audit --no-fund
+
+      - name: Verify and build
+        run: |
+          npm run verify
+          npm run build
+          npm run test:bundle
+
+      - name: Read and validate version
+        id: version
+        shell: bash
+        run: |
+          PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+          MANIFEST_VERSION="$(node -p "require('./manifest.json').version")"
+          if [ "$PACKAGE_VERSION" != "$MANIFEST_VERSION" ]; then
+            echo "package.json and manifest.json versions do not match" >&2
+            exit 1
+          fi
+          test -s main.js
+          test -s manifest.json
+          test -s styles.css
+          echo "value=$MANIFEST_VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Create version tag when missing
+        env:
+          VERSION: ${{ steps.version.outputs.value }}
+        shell: bash
+        run: |
+          if ! git ls-remote --exit-code --tags origin "refs/tags/$VERSION" >/dev/null 2>&1; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "$VERSION" -m "$VERSION"
+            git push origin "$VERSION"
+          fi
+
+      - name: Create or update GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.version.outputs.value }}
+        shell: bash
+        run: |
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            gh release upload "$VERSION" main.js manifest.json styles.css --clobber
+          else
+            gh release create "$VERSION" \
+              --title "RPG Homebrew Importer $VERSION" \
+              --generate-notes \
+              main.js manifest.json styles.css
+          fi
