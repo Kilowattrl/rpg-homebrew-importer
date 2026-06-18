@@ -6,7 +6,7 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   verify:
@@ -15,17 +15,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
-      - name: Restore staged source when needed
+      - name: Restore staged source for verification
         shell: bash
         run: |
           set -euo pipefail
-          if [ ! -f src/main.js ]; then
-            mkdir -p src
-            cat .source-parts/main-* | base64 --decode > src/main.js
-          fi
+          mkdir -p src
+          cat .source-parts/main-* | base64 --decode > src/main.js
           test -s src/main.js
 
       - name: Verify source syntax
@@ -40,17 +36,3 @@ jobs:
           test -s manifest.json
           test -s styles.css
           node -e "const p=require('./package.json'); const m=require('./manifest.json'); if(p.version!==m.version) throw new Error('package.json and manifest.json versions do not match'); if(!m.id||!m.name||!m.description) throw new Error('manifest.json is missing required fields')"
-
-      - name: Publish restored source branch
-        if: github.event_name == 'push' && github.ref_name == 'main'
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/main.js
-          if git diff --cached --quiet; then
-            exit 0
-          fi
-          git commit -m "Restore plugin source file"
-          git push origin HEAD:source-restore
